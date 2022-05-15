@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>服务派遣管理系统</title>
+</head>
+<style>
+    .exitAll {
+        line-height: 30px;
+        width: 50px;
+        color: white;
+        background-color: #0080FF;
+        margin-left: 500px;
+        padding: 0 !important;
+    }
+
+    .hotel {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hotel img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        filter: blur(3px);
+        z-index: -1;
+    }
+
+    .login {
+        width: 40%;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+    }
+
+    label {
+        font-size: 20px;
+        background-color: #2b879e;
+        text-align: center;
+        width: 50%;
+        padding: 20px 0;
+        color: white;
+    }
+
+    .line {
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 50px;
+        border: 1.5px solid #2b879e;
+    }
+
+    .input {
+        display: flex;
+        justify-content: center;
+        background-color: transparent;
+        width: 80%;
+        margin-top: 30px;
+    }
+
+    input {
+        border: 1px solid white;
+        background-color: transparent;
+    }
+
+    .UBtn {
+        margin-top: 60px;
+        background-color: transparent;
+        color: white;
+        letter-spacing: 5px;
+    }
+
+    .ABtn {
+        margin-top: 10px;
+        background-color: transparent;
+        color: white;
+        letter-spacing: 5px;
+    }
+
+    button {
+        border: 0;
+        padding: 10px 0;
+        width: 40%;
+    }
+
+    button:hover {
+        background-color: rgba(0, 0, 0, .5);
+        cursor: pointer;
+    }
+
+    .adView {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        display: flex;
+    }
+
+    .left {
+        width: 20%;
+        background-color: #434343;
+        height: 100%;
+    }
+
+    .right {
+        height: 100%;
+        width: 80%;
+    }
+
+    .welcome {
+        width: 100%;
+        line-height: 70px;
+        font-size: 27px;
+        color: white;
+        background-color: #3ec9a8;
+        padding-left: 10%;
+    }
+
+    .adBtns {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        padding-left: 10%;
+    }
+
+    .adBtns button {
+        background-color: #2b879e;
+        color: white;
+        letter-spacing: 5px;
+        margin: 20px 0;
+        width: 30%;
+    }
+
+    .cover {
+        background-color: rgba(0, 0, 0, .5);
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 4;
+    }
+
+    .cover div {
+        position: absolute;
+        top: 30%;
+        left: 30%;
+        z-index: 5;
+        background-color: white;
+        height: 200px;
+        width: 40%;
+        text-align: center;
+        padding-bottom: 30px;
+    }
+
+    .cover div input {
+        margin-top: 20%;
+        line-height: 40px;
+        border: 1px solid #000000;
+        padding-left: 5px;
+        width: 80%;
+    }
+
+    .cover div .exit {
+        height: 30px;
+        width: 50px;
+        background-color: #2b879e;
+        float: right;
+    }
+</style>
+
+<body>
+    <!-- 主界面 -->
+    <main class="hotel" style="display: block" id="mainView">
+        <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F202002%2F27%2F20200227143031_uJWYn.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1626764310&t=a7f1076e543e3cce668adfbafeb4fcd9.jpg" alt="">
+        <section class="login">
+            <label>酒店预订系统</label>
+            <div class="line"></div>
+            <div class="input">
+                用户名：
+                <input type="text" class="">
+            </div>
+            <div class="input">
+                密&nbsp;&nbsp;&nbsp;码：
+                <input type="password" class="">
+            </div>
+            <div class="input" style="display:none;" id="ack">
+                确认密码:
+                <input type="password" class="" id="ackPassword">
+            </div>
+            <button class="UBtn" onclick="userLogin()" style="display:block;" id="UBtn">用户登陆</button>
+            <button class="ABtn" onclick="register()" id="reg">用户注册</button>
+            <button class="ABtn" onclick="adLogin()" id="ABtn" style="display:block;">管理员登陆</button>
+        </section>
+    </main>
+
+    <!-- 用户界面 -->
+    <main class="adView" style="display: none" id="userView">
+        <section class="left"></section>
+        <section class="right">
+            <div class="welcome">
+                您好，欢迎使用服务派遣管理系统!
+                <button class="exitAll" onclick="exitAll()">注销</button>
+            </div>
+            <div class="adBtns">
+                <button onclick="management(1)">查看平台已有项目</button>
+                <button onclick="showOrder(1)">查询自由职业者信息</button>
+                <button onclick="management(2)">编写个人资料</button>
+                <button onclick="showOrder(2)">查看个人合同</button>
+                <button>发布所需项目</button>
+                <button>版本更新</button>
+                <button>合同设置</button>
+            </div>
+        </section>
+    </main>
+
+    <section class="cover" style="display:none;" id="cover">
+        <div>
+            <input type="text" placeholder="输入评价" id="adWindow">
+            <button class="exit" onclick="exit()">exit</button>
+        </div>
+    </section>
+
+    <!-- 管理员界面 -->
+    <main class="adView" style="display: none" id="adView">
+        <section class="left"></section>
+        <section class="right">
+            <div class="welcome">
+                欢迎！管理员
+                <button class="exitAll" onclick="exitAll()">注销</button>
+            </div>
+            <div class="adBtns">
+                <button onclick="administration(1)">修改密码</button>
+                <button onclick="administration(2)">办理入住</button>
+                <button onclick="administration(2)">办理退房</button>
+                <button onclick="administration(2)">查询客房信息</button>
+                <button onclick="administration(5)">更改客房信息</button>
+                <button onclick="administration(6)">回复评价信息</button>
+            </div>
+        </section>
+    </main>
+</body>
+
+<script>
+    function userLogin() {
+        // window.location.href = 'user.html';
+        var user = document.getElementById('userView'),
+            mainView = document.getElementById('mainView');
+        mainView.style.display = 'none';
+        user.style.display = 'flex';
+    }
+
+    function adLogin() {
+        // window.location.href = 'administrator.html';
+        var ad = document.getElementById('adView'),
+            mainView = document.getElementById('mainView');
+        mainView.style.display = 'none';
+        ad.style.display = 'flex';
+    }
+
+    function exitAll() {
+        var ad = document.getElementById('adView'),
+            user = document.getElementById('userView'),
+            mainView = document.getElementById('mainView');
+
+        ad.style.display = 'none';
+        user.style.display = 'none';
+        mainView.style.display = 'block';
+    }
+
+    function register() {
+        var inp = document.getElementById('ack'),
+            UBtn = document.getElementById('UBtn'),
+            reg = document.getElementById('reg'),
+            ABtn = document.getElementById('ABtn');
+        if (reg.innerText == '注册') {
+            reg.innerText = '用户注册';
+            inp.style.display = 'none';
+            UBtn.style.display = 'block';
+            ABtn.style.display = 'block';
+        } else {
+            reg.innerText = '注册';
+            inp.style.display = 'block';
+            ABtn.style.display = 'none';
+            UBtn.style.display = 'none';
+        }
+    }
+
+    function management(id) {
+        var cover = document.getElementById('cover'),
+            pla = document.getElementById('adWindow');
+        cover.style.display = 'block';
+        switch (id) {
+            case 1: pla.placeholder = '输入评价'; break;
+            case 2: pla.placeholder = '输入姓名房间号等'; break;
+        }
+    }
+
+    function showOrder(id) {
+        if (id == 1) {
+            alert('姓名：陈婷  性别：女  身份证号：3219005037 ');
+        } else {
+            alert('房间号：615  金额：717');
+        }
+    }
+
+    function exit() {
+        var cover = document.getElementById('cover');
+        cover.style.display = 'none';
+    }
+
+    function administration(id) {
+        console.log('a')
+        var cover = document.getElementById('cover'),
+            pla = document.getElementById('adWindow');
+        cover.style.display = 'block';
+        console.log(cover)
+        switch (id) {
+            case 1: pla.placeholder = '输入新密码'; break;
+            case 2: pla.placeholder = '输入房间号'; break;
+            case 5: pla.placeholder = '输入客房信息'; break;
+            case 6: pla.placeholder = '输入回复'; break;
+        }
+    }
+
+    function exit() {
+        var cover = document.getElementById('cover');
+        cover.style.display = 'none';
+    }
+</script>
+
+</html>
